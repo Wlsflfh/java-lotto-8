@@ -1,4 +1,4 @@
-package lotto.domain.model;
+package lotto.domain;
 
 public class Money {
 
@@ -8,8 +8,7 @@ public class Money {
 
     private final int money;
 
-    public Money(String moneyText) {
-        int money = validateNumeric(moneyText);
+    public Money(int money) {
         validateRange(money);
         validateUnit(money);
         this.money = money;
@@ -17,14 +16,6 @@ public class Money {
 
     public int calculateTicketCount() {
         return money / UNIT;
-    }
-
-    private int validateNumeric(String moneyText) {
-        try {
-            return Integer.parseInt(moneyText);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 구입 금액은 숫자만 가능합니다.");
-        }
     }
 
     private void validateRange(int money) {

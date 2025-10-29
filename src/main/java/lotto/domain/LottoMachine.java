@@ -1,20 +1,36 @@
-package lotto.domain;
+package lotto.domain.generator;
+
+import lotto.domain.LottoNumber;
+import lotto.domain.MatchResult;
+import lotto.domain.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoMachine {
 
-    private final List<List<Integer>> lottoTickets;
+    private final List<List<LottoNumber>> lottoTickets;
     private final RandomNumberGenerator randomNumberGenerator;
 
     public LottoMachine(int ticketCount, RandomNumberGenerator randomNumberGenerator) {
         this.randomNumberGenerator = randomNumberGenerator;
-        this.lottoTickets = generateLottoNumbers(ticketCount);
+        this.lottoTickets = generateLottoTickets(ticketCount);
     }
 
-    private List<List<Integer>> generateLottoNumbers(int ticketCount) {
-        List<List<Integer>> lottoTickets = new ArrayList<>();
+    public List<MatchResult> calculateMatchCount(WinningLotto winningLotto) {
+        List<MatchResult> lottoMatchCount = new ArrayList<>();
+
+        for (List<LottoNumber> lottoTicket : lottoTickets) {
+            int count = winningLotto.matchCount(lottoTicket);
+            boolean isBonus = winningLotto.hasBonus(lottoTicket);
+            lottoMatchCount.add(new MatchResult(count, isBonus));
+        }
+
+        return lottoMatchCount;
+    }
+
+    private List<List<LottoNumber>> generateLottoTickets(int ticketCount) {
+        List<List<LottoNumber>> lottoTickets = new ArrayList<>();
 
         for (int i = 0; i < ticketCount; i++) {
             lottoTickets.add(sortLottoNumbers(randomNumberGenerator.generate()));
@@ -23,13 +39,14 @@ public class LottoMachine {
         return lottoTickets;
     }
 
-    private List<Integer> sortLottoNumbers(List<Integer> numbers) {
+    private List<LottoNumber> sortLottoNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .sorted()
+                .map(LottoNumber::new)
                 .toList();
     }
 
-    public List<List<Integer>> getLottoTickets() {
+    public List<List<LottoNumber>> getLottoTickets() {
         return lottoTickets;
     }
 }
