@@ -1,4 +1,4 @@
-package lotto.domain.core;
+package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,5 @@ public class Lotto {
         if (numbers.size() != numbers.stream().distinct().count()) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 서로 중복될 수 없습니다.");
         }
-    }
-
-    public List<LottoNumber> getNumbers() {
-        return lottoNumbers;
     }
 }
