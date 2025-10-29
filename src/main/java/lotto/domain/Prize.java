@@ -1,4 +1,4 @@
-package lotto.domain.result;
+package lotto.domain;
 
 public enum Prize {
 
