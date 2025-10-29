@@ -1,8 +1,6 @@
-package lotto.domain.generator;
+package lotto.domain;
 
-import lotto.domain.LottoNumber;
-import lotto.domain.MatchResult;
-import lotto.domain.WinningLotto;
+import lotto.domain.generator.RandomNumberGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
