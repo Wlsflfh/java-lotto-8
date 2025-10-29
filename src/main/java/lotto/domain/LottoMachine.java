@@ -3,6 +3,7 @@ package lotto.domain;
 import lotto.domain.generator.RandomNumberGenerator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoMachine {
@@ -45,6 +46,8 @@ public class LottoMachine {
     }
 
     public List<List<LottoNumber>> getLottoTickets() {
-        return lottoTickets;
+        return lottoTickets.stream()
+                .map(Collections::unmodifiableList)
+                .toList();
     }
 }
