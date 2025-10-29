@@ -33,12 +33,4 @@ public enum Prize {
     public int getPrizeMoney() {
         return this.prizeMoney;
     }
-
-    public int getMatchCount() {
-        return this.matchCount;
-    }
-
-    public boolean getIsBonus() {
-        return this.hasBonus;
-    }
 }

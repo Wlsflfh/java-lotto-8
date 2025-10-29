@@ -22,7 +22,6 @@ public class LottoController {
 
     public void play() {
         Money money = readPurchaseMoneyUntilValid();
-
         LottoMachine lottoMachine = new LottoMachine(money.calculateTicketCount(), new LottoGenerator());
         outputView.printLottoTickets(money.calculateTicketCount(), lottoMachine.getLottoTickets());
 
@@ -44,7 +43,7 @@ public class LottoController {
 
     public Lotto readWinningNumbersUntilValid() {
         try {
-            return new Lotto(inputView.parseWinningNumbersUntilValid());
+            return new Lotto(inputView.readWinningNumbers());
         } catch (IllegalArgumentException e) {
             OutputView.showErrorMessage(e.getMessage());
             return readWinningNumbersUntilValid();
