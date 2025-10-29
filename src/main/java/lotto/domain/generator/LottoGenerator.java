@@ -1,10 +1,10 @@
-package lotto.domain;
+package lotto.domain.generator;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.List;
 
-public class LottoGenerator implements RandomNumberGenerator{
+public class LottoGenerator implements RandomNumberGenerator {
 
     private static final int LOTTO_SIZE = 6;
     private static final int FIRST_LOTTO_NUMBER_RANGE = 1;
