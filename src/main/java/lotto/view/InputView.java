@@ -8,8 +8,13 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
+    private static final String COMMA_DELIMITER = ",";
+    private static final String INPUT_MONEY_MESSAGE = "\n구입금액을 입력해 주세요.";
+    private static final String INPUT_WINNING_NUMBERS_MESSAGE = "\n당첨 번호를 입력해 주세요.";
+    private static final String INPUT_BONUS_NUMBER_MESSAGE = "\n보너스 번호를 입력해 주세요.";
+
     public int readPurchaseMoney() {
-        System.out.println("\n구입금액을 입력해 주세요.");
+        System.out.println(INPUT_MONEY_MESSAGE);
         try {
             return Integer.parseInt(userInput());
         } catch (NumberFormatException e) {
@@ -20,8 +25,8 @@ public class InputView {
 
     public List<Integer> readWinningNumbers() {
         try {
-            System.out.println("\n당첨 번호를 입력해 주세요.");
-            return Arrays.stream(userInput().split(","))
+            System.out.println(INPUT_WINNING_NUMBERS_MESSAGE);
+            return Arrays.stream(userInput().split(COMMA_DELIMITER))
                     .map(String::trim)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
@@ -32,7 +37,7 @@ public class InputView {
     }
 
     public int readBonusNumbers() {
-        System.out.println("\n보너스 번호를 입력해 주세요.");
+        System.out.println(INPUT_BONUS_NUMBER_MESSAGE);
         try {
             return Integer.parseInt(userInput());
         } catch (NumberFormatException e) {
