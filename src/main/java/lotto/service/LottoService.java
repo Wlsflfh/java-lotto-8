@@ -13,6 +13,9 @@ import java.util.Map;
 
 public class LottoService {
 
+    private static final int PERCENT = 100;
+    private static final int INIT_COUNT = 0;
+
     private final LottoMachine lottoMachine;
     private final WinningLotto winningLotto;
 
@@ -40,13 +43,13 @@ public class LottoService {
         Map<Prize, Integer> lottoResult = new HashMap<>();
 
         for (Prize prize : Prize.values()) {
-            lottoResult.put(prize, 0);
+            lottoResult.put(prize, INIT_COUNT);
         }
 
         return lottoResult;
     }
 
     private double calculateEarningRate(double totalPrizeMoney, Money money) {
-        return totalPrizeMoney / money.getMoney() * 100;
+        return totalPrizeMoney / money.getMoney() * PERCENT;
     }
 }

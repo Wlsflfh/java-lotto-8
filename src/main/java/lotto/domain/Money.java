@@ -4,6 +4,7 @@ public class Money {
 
     private static final int UNIT = 1000;
     private static final int MIN_AMOUNT = 0;
+    private static final int NO_REMAINDER = 0;
     private static final int MAX_AMOUNT = 1000000;
 
     private final int money;
@@ -29,7 +30,7 @@ public class Money {
     }
 
     private void validateUnit(int money) {
-        if (money % UNIT != 0) {
+        if (money % UNIT != NO_REMAINDER) {
             throw new IllegalArgumentException("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
         }
     }
