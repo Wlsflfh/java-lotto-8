@@ -4,12 +4,12 @@ import lotto.domain.Prize;
 
 import java.util.Map;
 
-public class LottoResultDto {
+public class LottoStatisticsDto {
 
     private final Map<Prize, Integer> lottoResult;
     private final double earningRate;
 
-    public LottoResultDto(Map<Prize, Integer> lottoResult, double earningRate) {
+    public LottoStatisticsDto(Map<Prize, Integer> lottoResult, double earningRate) {
         this.lottoResult = lottoResult;
         this.earningRate = earningRate;
     }
