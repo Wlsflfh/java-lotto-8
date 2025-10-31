@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import java.util.List;
-
 public class WinningLotto {
 
     private final Lotto winningNumbers;
@@ -13,19 +11,11 @@ public class WinningLotto {
         validateDuplicateBonusNumber();
     }
 
-    public int matchCount(List<LottoNumber> lottoTicket) {
-        int count = 0;
-
-        for (LottoNumber lottoNumber : lottoTicket) {
-            if (winningNumbers.contains(lottoNumber)) {
-                count++;
-            }
-        }
-
-        return count;
+    public int countMatchingNumbers(LottoTicket lottoTicket) {
+        return lottoTicket.countMatching(winningNumbers);
     }
 
-    public boolean hasBonus(List<LottoNumber> lottoTicket) {
+    public boolean containsBonusNumber(LottoTicket lottoTicket) {
         return lottoTicket.contains(bonusNumber);
     }
 
