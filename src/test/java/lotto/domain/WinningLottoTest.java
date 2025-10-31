@@ -12,28 +12,28 @@ class WinningLottoTest {
 
     @Test
     @DisplayName("matchCount 를 올바르게 세는지 확인한다")
-    void matchCountTest() {
+    void countMatchingNumbersTest() {
         // given
         WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(8));
 
         // when
-        List<LottoNumber> lottoTicket = List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(7), new LottoNumber(8));
+        LottoTicket lottoTicket = new LottoTicket(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(7), new LottoNumber(8)));
 
         // then
-        assertEquals(winningLotto.matchCount(lottoTicket), 4);
+        assertEquals(winningLotto.countMatchingNumbers(lottoTicket), 4);
     }
 
     @Test
     @DisplayName("보너스 번호가 로또에 존재하는지 확인한다")
-    void hasBonusTest() {
+    void containsBonusNumberTest() {
         // given
         WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(8));
 
         // when
-        List<LottoNumber> lottoTicket = List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(7), new LottoNumber(8));
+        LottoTicket lottoTicket = new LottoTicket(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(7), new LottoNumber(8)));
 
         // then
-        assertTrue(winningLotto.hasBonus(lottoTicket));
+        assertTrue(winningLotto.containsBonusNumber(lottoTicket));
     }
 
     @Test

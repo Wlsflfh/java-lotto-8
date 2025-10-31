@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class MoneyTest {
+class PurchaseAmountTest {
 
     @Test
     @DisplayName("구입 금액에 해당하는 만큼 로또를 발행하는지 확인한다.")
     void calculateTicketCountTest() {
         // given
         int userInput = 8000;
-        Money money = new Money(userInput);
+        PurchaseAmount purchaseAmount = new PurchaseAmount(userInput);
 
         // when
-        int ticketCount = money.calculateTicketCount();
+        int ticketCount = purchaseAmount.calculateTicketCount();
 
         // then
         assertThat(ticketCount).isEqualTo(8);
@@ -30,12 +30,12 @@ class MoneyTest {
         int userInput2 = 0;
 
         // when - then
-        assertThatThrownBy(() -> new Money(userInput1))
+        assertThatThrownBy(() -> new PurchaseAmount(userInput1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 양수만 가능합니다.");
 
         // when - then
-        assertThatThrownBy(() -> new Money(userInput2))
+        assertThatThrownBy(() -> new PurchaseAmount(userInput2))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 양수만 가능합니다.");
     }
@@ -47,7 +47,7 @@ class MoneyTest {
         int userInput = 10000000;
 
         // when - then
-        assertThatThrownBy(() -> new Money(userInput))
+        assertThatThrownBy(() -> new PurchaseAmount(userInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 1,000,000원 이하만 가능합니다.");
     }
@@ -59,7 +59,7 @@ class MoneyTest {
         int userInput = 999;
 
         // when - then
-        assertThatThrownBy(() -> new Money(userInput))
+        assertThatThrownBy(() -> new PurchaseAmount(userInput))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 구입 금액은 1,000원 단위여야 합니다.");
     }
