@@ -1,8 +1,8 @@
 package lotto.view;
 
-import lotto.domain.LottoNumber;
+import lotto.domain.LottoTicket;
 import lotto.domain.Prize;
-import lotto.service.dto.LottoResultDto;
+import lotto.service.dto.LottoStatisticsDto;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -19,17 +19,17 @@ public class OutputView {
         System.out.println(errorMessage);
     }
 
-    public void printLottoTickets(int ticketCount, List<List<LottoNumber>> lottoTickets) {
+    public void printLottoTickets(int ticketCount, List<LottoTicket> lottoTickets) {
         System.out.printf(TICKET_COUNT_HEADER_MESSAGE, ticketCount);
 
-        for (List<LottoNumber> lottoTicket : lottoTickets) {
-            System.out.println(lottoTicket);
+        for (LottoTicket lottoTicket : lottoTickets) {
+            System.out.println(lottoTicket.getLottoTicket());
         }
     }
 
-    public void printLottoResult(LottoResultDto lottoResultDto) {
+    public void printLottoResult(LottoStatisticsDto lottoStatisticsDto) {
         Map<Prize, Integer> sortedResult = new EnumMap<>(Prize.class);
-        sortedResult.putAll(lottoResultDto.getLottoResult());
+        sortedResult.putAll(lottoStatisticsDto.getLottoResult());
 
         System.out.println(LOTTO_RESULT_HEADER_MESSAGE);
         for (Map.Entry<Prize, Integer> prizeIntegerEntry : sortedResult.entrySet()) {
@@ -38,6 +38,6 @@ public class OutputView {
             System.out.printf(LOTTO_RESULT_FORMAT, PrizeView.from(prizeIntegerEntry.getKey()).getMessage(), prizeIntegerEntry.getValue());
         }
 
-        System.out.printf(EARNING_RATE_MESSAGE, lottoResultDto.getEarningRate());
+        System.out.printf(EARNING_RATE_MESSAGE, lottoStatisticsDto.getEarningRate());
     }
 }

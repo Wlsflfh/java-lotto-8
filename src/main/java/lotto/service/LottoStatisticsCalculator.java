@@ -19,19 +19,19 @@ public class LottoStatisticsCalculator {
         this.winningLotto = winningLotto;
     }
 
-    public LottoStatisticsDto calculateLottoStatistics(Money money) {
+    public LottoStatisticsDto calculateLottoStatistics(PurchaseAmount purchaseAmount) {
         Map<Prize, Integer> lottoStatistics = createEmptyLottoStatistics();
-        PrizeStatistics prizeStatistics = new PrizeStatistics();
+        PrizeMoney prizeMoney = new PrizeMoney();
 
         List<MatchResult> lottoMatchCount = lottoTickets.matchAllWith(winningLotto);
 
         for (MatchResult matchResult : lottoMatchCount) {
             Prize prize = Prize.from(matchResult);
             lottoStatistics.merge(prize, 1, Integer::sum);
-            prizeStatistics.accumulate(prize);
+            prizeMoney.accumulate(prize);
         }
 
-        return new LottoStatisticsDto(lottoStatistics, prizeStatistics.getEarningRate(money));
+        return new LottoStatisticsDto(lottoStatistics, prizeMoney.getEarningRate(purchaseAmount));
     }
 
     private Map<Prize, Integer> createEmptyLottoStatistics() {

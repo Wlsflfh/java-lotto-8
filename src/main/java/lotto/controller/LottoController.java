@@ -1,12 +1,9 @@
 package lotto.controller;
 
-import lotto.domain.Money;
-import lotto.domain.LottoMachine;
-import lotto.domain.generator.LottoGenerator;
-import lotto.domain.Lotto;
-import lotto.domain.LottoNumber;
-import lotto.domain.WinningLotto;
-import lotto.service.LottoService;
+import lotto.domain.*;
+import lotto.domain.generator.LottoMachine;
+import lotto.domain.generator.RandomNumberGenerator;
+import lotto.service.LottoStatisticsCalculator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -14,27 +11,30 @@ public class LottoController {
 
     private final InputView inputView;
     private final OutputView outputView;
+    private final RandomNumberGenerator randomNumberGenerator;
 
-    public LottoController(InputView inputView, OutputView outputView) {
+    public LottoController(InputView inputView, OutputView outputView, RandomNumberGenerator randomNumberGenerator) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.randomNumberGenerator = randomNumberGenerator;
     }
 
     public void play() {
-        Money money = readPurchaseMoneyUntilValid();
-        LottoMachine lottoMachine = new LottoMachine(money.calculateTicketCount(), new LottoGenerator());
-        outputView.printLottoTickets(money.calculateTicketCount(), lottoMachine.getLottoTickets());
+        PurchaseAmount purchaseAmount = readPurchaseMoneyUntilValid();
+        LottoMachine lottoMachine = new LottoMachine(purchaseAmount, randomNumberGenerator);
+        LottoTickets lottoTickets = lottoMachine.getLottoTickets();
+        outputView.printLottoTickets(purchaseAmount.calculateTicketCount(), lottoTickets.getLottoTickets());
 
         Lotto lotto = readWinningNumbersUntilValid();
         WinningLotto winningLotto = readWinningLottoUntilValid(lotto);
 
-        LottoService lottoService = new LottoService(lottoMachine, winningLotto);
-        outputView.printLottoResult(lottoService.calculateLottoResult(money));
+        LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoTickets, winningLotto);
+        outputView.printLottoResult(lottoStatisticsCalculator.calculateLottoStatistics(purchaseAmount));
     }
 
-    public Money readPurchaseMoneyUntilValid() {
+    public PurchaseAmount readPurchaseMoneyUntilValid() {
         try {
-            return new Money(inputView.readPurchaseMoney());
+            return new PurchaseAmount(inputView.readPurchaseMoney());
         } catch (IllegalArgumentException e) {
             OutputView.showErrorMessage(e.getMessage());
             return readPurchaseMoneyUntilValid();
