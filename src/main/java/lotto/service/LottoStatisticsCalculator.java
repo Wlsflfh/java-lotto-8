@@ -1,10 +1,7 @@
 package lotto.service;
 
-import lotto.domain.Money;
-import lotto.domain.LottoMachine;
-import lotto.domain.MatchResult;
-import lotto.domain.Prize;
-import lotto.domain.WinningLotto;
+import lotto.domain.*;
+import lotto.domain.generator.LottoMachine;
 import lotto.service.dto.LottoResultDto;
 
 import java.util.HashMap;
@@ -16,11 +13,11 @@ public class LottoService {
     private static final int PERCENT = 100;
     private static final int INIT_COUNT = 0;
 
-    private final LottoMachine lottoMachine;
+    private final LottoTickets lottoTickets;
     private final WinningLotto winningLotto;
 
-    public LottoService(LottoMachine lottoMachine, WinningLotto winningLotto) {
-        this.lottoMachine = lottoMachine;
+    public LottoService(LottoTickets lottoTickets, WinningLotto winningLotto) {
+        this.lottoTickets = lottoTickets;
         this.winningLotto = winningLotto;
     }
 
@@ -28,7 +25,7 @@ public class LottoService {
         Map<Prize, Integer> lottoResult = initLottoResult();
         double totalPrizeMoney = 0;
 
-        List<MatchResult> lottoMatchCount = lottoMachine.calculateMatchCount(winningLotto);
+        List<MatchResult> lottoMatchCount = lottoTickets.calculateMatchCount(winningLotto);
 
         for (MatchResult matchResult : lottoMatchCount) {
             Prize prize = Prize.from(matchResult);
