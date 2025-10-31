@@ -4,16 +4,16 @@ import java.util.List;
 
 public class LottoTicket {
 
-    private final List<LottoNumber> numbers;
+    private final List<LottoNumber> lottoTicket;
 
-    public LottoTicket(List<LottoNumber> numbers) {
-        this.numbers = numbers;
+    public LottoTicket(List<LottoNumber> lottoTicket) {
+        this.lottoTicket = lottoTicket;
     }
 
     public int countMatching(Lotto winningNumbers) {
         int count = 0;
 
-        for (LottoNumber lottoNumber : numbers) {
+        for (LottoNumber lottoNumber : lottoTicket) {
             if (winningNumbers.contains(lottoNumber)) {
                 count++;
             }
@@ -23,10 +23,10 @@ public class LottoTicket {
     }
 
     public boolean contains(LottoNumber bonusNumber) {
-        return numbers.contains(bonusNumber);
+        return lottoTicket.contains(bonusNumber);
     }
 
-    public List<LottoNumber> getNumbers() {
-        return numbers;
+    public List<LottoNumber> getLottoTicket() {
+        return lottoTicket;
     }
 }

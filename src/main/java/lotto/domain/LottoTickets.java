@@ -5,16 +5,16 @@ import java.util.List;
 
 public class LottoTickets {
 
-    private final List<LottoTicket> tickets;
+    private final List<LottoTicket> lottoTickets;
 
-    public LottoTickets(List<LottoTicket> tickets) {
-        this.tickets = List.copyOf(tickets);
+    public LottoTickets(List<LottoTicket> lottoTickets) {
+        this.lottoTickets = List.copyOf(lottoTickets);
     }
 
     public List<MatchResult> matchAllWith(WinningLotto winningLotto) {
         List<MatchResult> lottoMatchCount = new ArrayList<>();
 
-        for (LottoTicket lottoTicket : tickets) {
+        for (LottoTicket lottoTicket : lottoTickets) {
             int count = winningLotto.countMatchingNumbers(lottoTicket);
             boolean isBonus = winningLotto.containsBonusNumber(lottoTicket);
             lottoMatchCount.add(new MatchResult(count, isBonus));
@@ -23,7 +23,7 @@ public class LottoTickets {
         return lottoMatchCount;
     }
 
-    public List<LottoTicket> getTickets() {
-        return tickets;
+    public List<LottoTicket> getLottoTickets() {
+        return lottoTickets;
     }
 }
