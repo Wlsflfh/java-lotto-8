@@ -25,14 +25,18 @@ public class LottoController {
         LottoTickets lottoTickets = lottoMachine.getLottoTickets();
         outputView.printLottoTickets(purchaseAmount.calculateTicketCount(), lottoTickets.getLottoTickets());
 
-        Lotto lotto = readWinningNumbersUntilValid();
-        WinningLotto winningLotto = readWinningLottoUntilValid(lotto);
+        WinningLotto winningLotto = getWinningLotto();
 
         LottoStatisticsCalculator lottoStatisticsCalculator = new LottoStatisticsCalculator(lottoTickets, winningLotto);
-        outputView.printLottoResult(lottoStatisticsCalculator.calculateLottoStatistics(purchaseAmount));
+        outputView.printLottoStatistics(lottoStatisticsCalculator.calculateLottoStatistics(purchaseAmount));
     }
 
-    public PurchaseAmount readPurchaseMoneyUntilValid() {
+    private WinningLotto getWinningLotto() {
+        Lotto lotto = readWinningNumbersUntilValid();
+        return readWinningLottoUntilValid(lotto);
+    }
+
+    private PurchaseAmount readPurchaseMoneyUntilValid() {
         try {
             return new PurchaseAmount(inputView.readPurchaseMoney());
         } catch (IllegalArgumentException e) {
@@ -41,7 +45,7 @@ public class LottoController {
         }
     }
 
-    public Lotto readWinningNumbersUntilValid() {
+    private Lotto readWinningNumbersUntilValid() {
         try {
             return new Lotto(inputView.readWinningNumbers());
         } catch (IllegalArgumentException e) {
@@ -50,7 +54,7 @@ public class LottoController {
         }
     }
 
-    public WinningLotto readWinningLottoUntilValid(Lotto lotto) {
+    private WinningLotto readWinningLottoUntilValid(Lotto lotto) {
         try {
             return new WinningLotto(lotto, new LottoNumber(inputView.readBonusNumbers()));
         } catch (IllegalArgumentException e) {
