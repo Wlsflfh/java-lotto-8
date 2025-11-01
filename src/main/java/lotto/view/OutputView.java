@@ -27,7 +27,7 @@ public class OutputView {
         }
     }
 
-    public void printLottoResult(LottoStatisticsDto lottoStatisticsDto) {
+    public void printLottoStatistics(LottoStatisticsDto lottoStatisticsDto) {
         Map<Prize, Integer> sortedResult = new EnumMap<>(Prize.class);
         sortedResult.putAll(lottoStatisticsDto.getLottoResult());
 
