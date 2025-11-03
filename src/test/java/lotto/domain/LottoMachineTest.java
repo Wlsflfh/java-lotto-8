@@ -16,7 +16,7 @@ class LottoMachineTest {
     @DisplayName("오름차순으로 정렬된 로또 번호를 올바르게 생성하는지 확인한다")
     void generateSortedLottoTicketTest() {
         // given
-        LottoMachine lottoMachine = new LottoMachine(new PurchaseAmount(3000), new LottoGenerator());
+        LottoMachine lottoMachine = new LottoMachine(new PurchaseAmount(3000));
 
         // when
         LottoTickets lottoTickets = lottoMachine.getLottoTickets();
