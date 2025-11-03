@@ -8,18 +8,17 @@ import java.util.List;
 public class LottoMachine {
 
     private final LottoTickets lottoTickets;
-    private final RandomNumberGenerator randomNumberGenerator;
 
-    public LottoMachine(PurchaseAmount purchaseAmount, RandomNumberGenerator randomNumberGenerator) {
-        this.randomNumberGenerator = randomNumberGenerator;
+    public LottoMachine(PurchaseAmount purchaseAmount) {
         this.lottoTickets = generateLottoTickets(purchaseAmount);
     }
 
     private LottoTickets generateLottoTickets(PurchaseAmount purchaseAmount) {
+        LottoGenerator lottoGenerator = new LottoGenerator();
         List<LottoTicket> tickets = new ArrayList<>();
 
         for (int i = 0; i < purchaseAmount.calculateTicketCount(); i++) {
-            List<LottoNumber> lottoTicket = createSortedLottoTicket(randomNumberGenerator.generate());
+            List<LottoNumber> lottoTicket = createSortedLottoTicket(lottoGenerator.generate());
             tickets.add(new LottoTicket(lottoTicket));
         }
 
